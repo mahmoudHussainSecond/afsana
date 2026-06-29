@@ -1,0 +1,624 @@
+/* ==========================================================================
+   CSS VARIABLES & THEMING
+   ========================================================================== */
+:root {
+    --bg-color: #FFF8F6;
+    --primary-pink: #F6B6C8;
+    --soft-rose: #FFD9E3;
+    --cream: #FFFDFB;
+    --text-color: #463C3C;
+    --accent: #FF5F8F;
+    --card-bg: rgba(255, 253, 251, 0.85);
+    --shadow: 0 15px 35px rgba(70, 60, 60, 0.08);
+    --font-main: 'Quicksand', sans-serif;
+    --font-title: 'Dancing Script', cursive;
+}
+
+body.night-mode {
+    --bg-color: #1a1518;
+    --primary-pink: #8c5b6b;
+    --soft-rose: #4a2e37;
+    --cream: #2a2225;
+    --text-color: #fce8ef;
+    --accent: #ff85aa;
+    --card-bg: rgba(42, 34, 37, 0.85);
+    --shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+}
+
+/* ==========================================================================
+   GLOBAL RESET & TYPOGRAPHY
+   ========================================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: var(--font-main);
+    overflow: hidden;
+    transition: background-color 1s ease, color 1s ease;
+    -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, .handwritten {
+    font-family: var(--font-title);
+    font-weight: 700;
+}
+
+/* Texture overlay for paper feel */
+.texture-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    background-image: url('data:image/svg+xml;utf8,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)" opacity="0.03"/%3E%3C/svg%3E');
+    z-index: 9999;
+}
+
+/* ==========================================================================
+   SCREENS & LAYOUTS
+   ========================================================================== */
+.screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    z-index: 10;
+}
+
+.screen.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* --- Landing Page --- */
+#landing {
+    z-index: 20;
+}
+
+.landing-content {
+    text-align: center;
+    z-index: 2;
+}
+
+#landing h1 {
+    font-size: 5rem;
+    color: var(--accent);
+    margin-bottom: 1rem;
+    text-shadow: 0 4px 15px rgba(255, 95, 143, 0.2);
+}
+
+#landing p {
+    font-size: 1.2rem;
+    line-height: 1.8;
+    margin-bottom: 3rem;
+    color: var(--text-color);
+    opacity: 0.8;
+}
+
+.start-btn {
+    background-color: var(--primary-pink);
+    color: var(--cream);
+    border: none;
+    padding: 1rem 3rem;
+    font-size: 1.2rem;
+    font-family: var(--font-main);
+    font-weight: 600;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: var(--shadow);
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.start-btn:hover {
+    transform: translateY(-3px) scale(1.02);
+    background-color: var(--accent);
+    box-shadow: 0 15px 25px rgba(255, 95, 143, 0.3);
+}
+
+/* --- Intro Sequence --- */
+#intro-sequence {
+    background-color: #000;
+    color: #fff;
+    z-index: 30;
+}
+
+.intro-text {
+    font-size: 2.5rem;
+    font-family: var(--font-title);
+    position: absolute;
+    opacity: 0;
+}
+
+/* --- The Journey UI --- */
+#journey {
+    padding: 2rem;
+}
+
+.top-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 15;
+}
+
+.progress-container {
+    width: 200px;
+}
+
+.progress-text {
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.progress-bar-bg {
+    width: 100%;
+    height: 6px;
+    background-color: var(--soft-rose);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.progress-bar-fill {
+    width: 0%;
+    height: 100%;
+    background-color: var(--accent);
+    border-radius: 10px;
+    transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.controls {
+    position: absolute;
+    bottom: 3rem;
+    display: flex;
+    gap: 2rem;
+    z-index: 15;
+}
+
+.nav-btn {
+    background: var(--card-bg);
+    border: 1px solid var(--soft-rose);
+    color: var(--text-color);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    backdrop-filter: blur(10px);
+    box-shadow: var(--shadow);
+    transition: all 0.3s ease;
+    font-size: 1.2rem;
+}
+
+.nav-btn:hover {
+    background: var(--primary-pink);
+    color: var(--cream);
+    transform: scale(1.1);
+}
+
+.nav-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* ==========================================================================
+   MEMORY CARDS
+   ========================================================================== */
+.card-container {
+    position: relative;
+    width: 100%;
+    max-width: 1400px;
+    /* Expanded height to make the card almost full screen */
+    height: 85vh;
+    perspective: 1200px;
+}
+
+.memory-card {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--card-bg);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 20px;
+    padding: 1.5rem 2.5rem 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: var(--shadow);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateZ(-100px) rotateY(10deg);
+}
+
+.memory-card.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateZ(0) rotateY(0deg);
+}
+
+.chapter-title {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: var(--accent);
+    margin-bottom: 0.4rem;
+    font-weight: 600;
+}
+
+.memory-title {
+    font-size: 2.4rem;
+    margin-bottom: 0.5rem;
+    text-align: center;
+    color: var(--text-color);
+    line-height: 1.2;
+}
+
+.memory-desc {
+    font-size: 1rem;
+    text-align: center;
+    margin-bottom: 1rem;
+    max-width: 80%;
+    opacity: 0.75;
+    line-height: 1.6;
+}
+
+/* ==========================================================================
+   MEDIA AREA — 9:16 PORTRAIT RATIO
+   ========================================================================== */
+.media-area {
+    flex-grow: 1;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    min-height: 0; /* allow flex shrink */
+}
+
+/* Polaroid frame — sized around portrait 9:16 content */
+.polaroid {
+    background: white;
+    padding: 10px 10px 36px 10px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+    transform: rotate(-2deg);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    cursor: pointer;
+    position: relative;
+    /* Width increased to match the larger container */
+    width: min(340px, 35vw);
+    flex-shrink: 0;
+    border-radius: 4px;
+}
+
+.polaroid:nth-child(even) {
+    transform: rotate(2.5deg);
+}
+
+.polaroid:hover {
+    transform: scale(2.2) rotate(0deg);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+    z-index: 50;
+}
+
+/* Adjust landscape (16:9) polaroids to be wider so they don't look too small */
+.polaroid.landscape {
+    width: min(540px, 60vw);
+}
+
+/* The actual media wrapper — uses fixed aspect ratio to prevent grid overflow */
+.media-frame {
+    width: 100%;
+    aspect-ratio: 9 / 16;
+    overflow: hidden;
+    position: relative;
+    background: #f0ece9;
+    border-radius: 2px;
+}
+
+/* Landscape frames get 16/9 */
+.polaroid.landscape .media-frame {
+    aspect-ratio: 16 / 9;
+}
+
+.media-frame img,
+.media-frame video {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+    transition: opacity 0.3s ease;
+}
+
+/* Play button overlay for video thumbs */
+.polaroid.video-thumb .media-frame::after {
+    content: '▶';
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    color: white;
+    background: rgba(0, 0, 0, 0.15);
+    /* overlay trick via pseudo element — use a separate element instead */
+}
+
+.play-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+}
+
+.play-overlay span {
+    width: 52px;
+    height: 52px;
+    background: rgba(255, 95, 143, 0.88);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    color: white;
+    padding-left: 4px;
+    box-shadow: 0 4px 16px rgba(255, 95, 143, 0.45);
+    transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.polaroid.video-thumb:hover .play-overlay span {
+    transform: scale(1.12);
+    background: rgba(255, 95, 143, 1);
+}
+
+.carousel-container {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    /* Moderate padding to prevent clipping when scaled, without overlapping other UI */
+    padding: 50px 30px;
+    margin: -30px -15px;
+    width: calc(100% + 30px);
+    height: auto;
+    align-items: center;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary-pink) transparent;
+}
+
+.carousel-container::-webkit-scrollbar {
+    height: 6px;
+}
+
+.carousel-container::-webkit-scrollbar-thumb {
+    background: var(--primary-pink);
+    border-radius: 4px;
+}
+
+.carousel-container .polaroid {
+    flex: 0 0 auto;
+    scroll-snap-align: center;
+    transform: none;
+    width: min(240px, 26vw);
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.carousel-container .polaroid:hover {
+    transform: scale(1.65) rotate(0deg);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+    z-index: 50;
+}
+
+/* ==========================================================================
+   MODAL — FULL-SCREEN CINEMATIC VIEWER (respects 9:16)
+   ========================================================================== */
+.modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(8, 6, 8, 0.92);
+    backdrop-filter: blur(20px);
+    z-index: 200;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+.modal.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-close {
+    position: absolute;
+    top: 28px;
+    right: 36px;
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 2.2rem;
+    cursor: pointer;
+    line-height: 1;
+    transition: transform 0.3s ease, color 0.3s ease;
+    z-index: 10;
+    user-select: none;
+}
+
+.modal-close:hover {
+    transform: scale(1.2) rotate(90deg);
+    color: var(--accent);
+}
+
+#modal-body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 95vw;
+    max-height: 95vh;
+}
+
+/* 9:16 media inside modal — caps at 90vh tall */
+#modal-body img,
+#modal-body video {
+    max-height: 90vh;
+    max-width: 95vw;
+    /* For portrait content: let height drive width */
+    width: auto;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+    object-fit: contain;
+}
+
+/* ==========================================================================
+   ENDING / LOVE LETTER SCREEN
+   ========================================================================== */
+#ending {
+    background-color: var(--cream);
+    padding: 5vw;
+    overflow: hidden;
+    justify-content: center;
+    align-items: center;
+}
+
+.letter-container {
+    position: relative;
+    max-width: 900px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.letter-line {
+    position: absolute;
+    font-family: var(--font-title);
+    font-size: 3rem; /* Much larger since it's one line at a time */
+    line-height: 1.5;
+    color: var(--text-color);
+    text-align: center;
+    width: 100%;
+    margin: 0;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.letter-heart {
+    color: var(--accent);
+    font-size: 5rem;
+}
+
+/* ==========================================================================
+   EASTER EGGS & EXTRAS
+   ========================================================================== */
+.panda-mascot {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    font-size: 3rem;
+    cursor: pointer;
+    z-index: 20;
+    transition: transform 0.3s ease;
+}
+
+.panda-mascot:hover {
+    transform: scale(1.2) rotate(-10deg);
+}
+
+.moon-icon {
+    cursor: pointer;
+    font-size: 1.5rem;
+    transition: transform 0.3s ease;
+}
+
+.moon-icon:hover {
+    transform: scale(1.2);
+}
+
+.achievement-toast {
+    position: fixed;
+    top: 20px;
+    right: -320px;
+    background: rgba(255, 255, 255, 0.96);
+    border-left: 4px solid var(--accent);
+    padding: 14px 20px;
+    border-radius: 10px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-weight: 600;
+    transition: right 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.achievement-toast.show {
+    right: 20px;
+}
+
+.floating-petal {
+    position: fixed;
+    background-color: var(--primary-pink);
+    border-radius: 50% 0 50% 50%;
+    opacity: 0.6;
+    pointer-events: none;
+    z-index: 1;
+    animation: fall linear infinite;
+}
+
+@keyframes fall {
+    0%   { transform: translateY(-10vh) rotate(0deg); }
+    100% { transform: translateY(110vh) rotate(360deg); }
+}
+
+.hidden-note {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    background: var(--accent);
+    color: white;
+    padding: 30px 40px;
+    border-radius: 20px;
+    font-family: var(--font-title);
+    font-size: 2.2rem;
+    z-index: 9999;
+    box-shadow: 0 10px 40px rgba(255, 95, 143, 0.5);
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    text-align: center;
+    line-height: 1.5;
+}
+
+.hidden-note.show {
+    transform: translate(-50%, -50%) scale(1);
+}

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To My Forever, Afsu ❤️</title>
+    <meta name="description" content="A private love story — every memory leads back to you.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;700&family=Quicksand:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- GSAP (must load before app.js) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+</head>
+<body>
+
+    <!-- Paper-texture overlay -->
+    <div class="texture-overlay"></div>
+
+    <!-- Background music — starts when user clicks the button -->
+    <audio id="bg-music" loop>
+        <source src="song.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         SCREEN 1 — LANDING
+         ═══════════════════════════════════════════════════════════ -->
+    <section id="landing" class="screen active">
+        <div class="landing-content">
+            <h1>Our Story</h1>
+            <p>
+                Every picture tells a story.<br>
+                Every video holds a heartbeat.<br>
+                Every memory leads back to you.
+            </p>
+            <button class="start-btn" id="start-btn">❤️ Begin Our Journey ❤️</button>
+        </div>
+        <div class="panda-mascot" id="panda" title="Click me!">🐼</div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         SCREEN 2 — CINEMATIC INTRO
+         ═══════════════════════════════════════════════════════════ -->
+    <section id="intro-sequence" class="screen">
+        <div class="intro-text" id="intro-date">June 26, 2022</div>
+        <div class="intro-text" id="intro-met">We met.</div>
+        <div class="intro-text" id="intro-began">Our story began.</div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         SCREEN 3 — THE JOURNEY (memory cards)
+         ═══════════════════════════════════════════════════════════ -->
+    <section id="journey" class="screen">
+
+        <!-- Top bar: progress + night mode -->
+        <div class="top-bar">
+            <div class="progress-container">
+                <div class="progress-text" id="progress-text">Memory 1 of X</div>
+                <div class="progress-bar-bg">
+                    <div class="progress-bar-fill" id="progress-bar"></div>
+                </div>
+            </div>
+            <div class="moon-icon" id="moon-toggle" title="Toggle Night Mode">🌙</div>
+        </div>
+
+        <!-- Card stage — cards are injected here by JS -->
+        <div class="card-container" id="card-container"></div>
+
+        <!-- Navigation arrows -->
+        <div class="controls">
+            <button class="nav-btn" id="prev-btn" aria-label="Previous memory">←</button>
+            <button class="nav-btn" id="next-btn" aria-label="Next memory">→</button>
+        </div>
+
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         SCREEN 4 — ENDING / LOVE LETTER
+         ═══════════════════════════════════════════════════════════ -->
+    <section id="ending" class="screen">
+        <div class="letter-container" id="letter-content">
+            <!-- Lines injected by JS -->
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         MODAL — full-screen media viewer
+         ═══════════════════════════════════════════════════════════ -->
+    <div class="modal" id="media-modal" role="dialog" aria-modal="true">
+        <div class="modal-close" id="close-modal" aria-label="Close">×</div>
+        <div id="modal-body"></div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         ACHIEVEMENT TOAST
+         ═══════════════════════════════════════════════════════════ -->
+    <div class="achievement-toast" id="achievement" role="status">
+        <span class="ach-icon">🏆</span>
+        <div class="ach-text">
+            <div style="font-size:0.78rem;color:#888;font-weight:500;">Achievement Unlocked</div>
+            <div id="ach-title" style="color:var(--accent);font-size:1rem;"></div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         HIDDEN LOVE NOTE (press H)
+         ═══════════════════════════════════════════════════════════ -->
+    <div class="hidden-note" id="hidden-note">
+        You found a secret! <br>
+        I love you more than words can say. ❤️
+    </div>
+
+    <!-- Application logic -->
+    <script src="app.js"></script>
+
+</body>
+</html>
